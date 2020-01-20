@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd">
+	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="a01b652d-10c1-478e-af8b-367741580000" >
+		<http:listener-connection host="0.0.0.0" port="8081" />
+	</http:listener-config>
+	<flow name="timestampFlow" doc:id="4d2ca9a3-24dd-43ed-82b7-5a5e0e723c29" >
+		<http:listener doc:name="Listener" doc:id="473a333d-bed7-43a8-96eb-cabd1b94ee65" config-ref="HTTP_Listener_config" path="/time"/>
+		<set-payload value="#[output application/json
+---
+{
+	timestamp: now()
+}]" doc:name="Set Payload" doc:id="880f1996-f998-4124-b8a2-1ef392977452" />
+	</flow>
+</mule>
